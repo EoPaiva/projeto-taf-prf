@@ -1,0 +1,235 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0d1a2d;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    background-color: #172a45;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 700px;
+    border: 2px solid #0056b3;
+}
+
+h1 {
+    color: #ffd700;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 1.8em;
+    margin-top: 0;
+}
+
+#intro-container h2 {
+    color: #ffd700;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-group label {
+    font-size: 1.2em;
+    width: 150px;
+    margin-right: 20px;
+    color: #ffffff;
+}
+
+.form-group input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #0056b3;
+    border-radius: 5px;
+    background-color: #1a2a47;
+    color: #ffffff;
+    font-size: 1em;
+}
+
+#start-button, #show-analysis-button, #download-log {
+    background-color: #0056b3;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#start-button:hover, #show-analysis-button:hover, #download-log:hover {
+    background-color: #004080;
+    transform: translateY(-2px);
+}
+
+/* Estilos para o quiz e resultados */
+#question-text {
+    min-height: 80px;
+    font-size: 1.5em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+
+#answer-input {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 1px solid #0056b3;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1.2em;
+    color: #ffffff;
+    background-color: #1a2a47;
+    resize: none;
+}
+
+#next-button {
+    background-color: #0056b3;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#next-button:hover {
+    background-color: #004080;
+    transform: translateY(-2px);
+}
+
+#next-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+#results-container {
+    margin-top: 40px;
+}
+
+/* Estilo da barra de progresso */
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #2a3d5b;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #ffd700;
+    transition: width 0.4s ease;
+}
+
+/* Estilos para o temporizador circular */
+.timer-container {
+    margin: 20px auto;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    transform: rotate(-90deg);
+}
+
+#timer-ring {
+    width: 100%;
+    height: 100%;
+}
+
+.ring-bg {
+    fill: none;
+    stroke: #2a3d5b;
+    stroke-width: 4;
+}
+
+.ring-fill {
+    fill: none;
+    stroke: #d9534f;
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.5s linear;
+}
+
+.timer-text {
+    fill: #d9534f;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-anchor: middle;
+    transform: rotate(90deg);
+    transform-origin: center;
+}
+
+/* Estilos para a animação de digitação */
+.typing-effect::after {
+    content: '|';
+    animation: blink-caret 1s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+}
+
+/* Estilo para a tabela de análise */
+#analysis-results table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#analysis-results th, #analysis-results td {
+    border: 1px solid #4a678f;
+    padding: 10px;
+    text-align: left;
+}
+
+#analysis-results th {
+    background-color: #0056b3;
+    color: white;
+}
+
+#analysis-results .correct {
+    background-color: #28a745;
+}
+
+#analysis-results .incorrect {
+    background-color: #dc3545;
+}
+
+#analysis-results .partial {
+    background-color: #ffc107;
+}

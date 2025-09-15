@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAF PRF - Teste Teórico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Teste de Aptidão Física (TAF) - PRF</h1>
+
+        <div id="intro-container">
+            <h2>Informações do Conscrito</h2>
+            <div class="form-group">
+                <label for="conscript-name">Nome:</label>
+                <input type="text" id="conscript-name" placeholder="Nome Completo">
+            </div>
+            <div class="form-group">
+                <label for="conscript-passport">Passaporte:</label>
+                <input type="text" id="conscript-passport" placeholder="Número do Passaporte">
+            </div>
+            <div class="form-group">
+                <label for="conscript-discord">ID do Discord:</label>
+                <input type="text" id="conscript-discord" placeholder="Ex: @NomeDeUsuário#1234">
+            </div>
+            <div class="form-group">
+                <label for="conscript-age">Idade:</label>
+                <input type="number" id="conscript-age" placeholder="Idade">
+            </div>
+            <button id="start-button">Iniciar Teste</button>
+        </div>
+
+        <div id="quiz-container" style="display: none;">
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <h2 id="question-text"></h2>
+            <div class="timer-container">
+                <svg id="timer-ring" viewBox="0 0 36 36">
+                    <path class="ring-bg" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path id="ring" class="ring-fill" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <text id="timer-text" x="18" y="20.35" class="timer-text"></text>
+                </svg>
+            </div>
+            <textarea id="answer-input" placeholder="Digite sua resposta aqui..."></textarea>
+            <button id="next-button">Próxima Pergunta</button>
+        </div>
+
+        <div id="results-container" style="display: none;">
+            <h2>Teste Concluído!</h2>
+            <p>Obrigado por participar. Por favor, baixe o log e o envie para análise.</p>
+            <button id="download-log">Baixar Log para Análise</button>
+        </div>
+        
+        <div id="analysis-container" style="display: none;">
+            <h2>Analisar Log de Teste</h2>
+            <p>Selecione um arquivo de log para análise.</p>
+            <input type="file" id="log-file-input" accept=".log">
+            <div id="analysis-results"></div>
+        </div>
+        <button id="show-analysis-button" style="margin-top: 20px;">Analisar Log</button>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
