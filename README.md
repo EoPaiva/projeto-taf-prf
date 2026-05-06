@@ -1,26 +1,34 @@
-# 👮‍♂️ TAF PRF - Sistema de Teste Teórico - GTA V FIVEM
+# 🛡️ Sistema de Recrutamento Tático - PRF (FiveM)
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)
+![Versão](https://img.shields.io/badge/version-2.0.0-gold)
+![Status](https://img.shields.io/badge/status-finalizado-success)
+![Tecnologias](https://img.shields.io/badge/tech-HTML5%20|%20CSS3%20|%20JS%20ES6+-blue)
 
-Aplicação interativa para a realização e análise do **Teste de Aptidão Física (Etapa Teórica)** em ambientes de Roleplay (RP).
+Uma plataforma avançada de avaliação teórica e gestão de processos seletivos desenvolvida especificamente para corporações policiais em servidores **FiveM**. Este sistema automatiza o recrutamento, oferecendo uma interface imersiva "Cyber-Tactical" e um motor de correção inteligente.
+
+---
 
 ## 🚀 Funcionalidades
 
-* **Identificação:** Captura de dados do consciente (Nome, Passaporte, Discord, Idade).
-* **Quiz Tático:** 20 questões sobre protocolos policiais.
-* **Timer Circular:** Feedback visual de tempo (20s por pergunta).
-* **Análise de Log:** Sistema integrado para avaliadores lerem ficheiros de log e verificarem pontuações.
-
-## 🛠️ Instalação
-
-1. Faça o download dos ficheiros `index.html`, `style.css` e `script.js`.
-2. Mantenha-os na mesma pasta.
-3. Abra o `index.html` no seu navegador.
-
-## 📝 Como Avaliar
-Ao final do teste, o candidato gera um ficheiro `.log`. O instrutor deve usar o botão **"Analisar Log"** no rodapé da página para carregar esse ficheiro e ver a correção detalhada.
+- **Identificação Estruturada:** Registo completo do conscrito (Nome, ID/Passaporte, Discord e Idade).
+- **Módulo de Avaliação Dinâmica:** Questões táticas com cronómetro individual por pergunta e barra de progresso visual.
+- **Motor de Correção Automática:** Algoritmo em JavaScript que analisa respostas comparando-as com palavras-chave, atribuindo classificações (*Correta*, *Parcial* ou *Incorreta*).
+- **Geração de Relatórios (.LOG):** Sistema de exportação de logs codificados para entrega aos instrutores, garantindo a integridade dos resultados.
+- **Painel do Instrutor (Admin):** Área administrativa que permite o upload e processamento do ficheiro `.log` para gerar tabelas de desempenho detalhadas.
 
 ---
-*Desenvolvido para fins de simulação.*
+
+## 🛠️ Stack Tecnológica
+
+- **Frontend:** HTML5 Semântico e CSS3 (Utilização de *CSS Variables* e Design *Glassmorphism*).
+- **Lógica:** JavaScript (ES6+) focado em manipulação de DOM, gestão de estado e processamento de ficheiros.
+- **UI/UX:** Estética tática de alto contraste, animações otimizadas e tipografia focada em legibilidade (*Inter* & *JetBrains Mono*).
+
+---
+
+## 📐 Estrutura do Projeto
+
+```bash
+├── index.html   # Estrutura principal e módulos da aplicação
+├── style.css    # Identidade visual, animações e responsividade
+└── script.js    # Motor de avaliação, lógica de logs e painel admin
