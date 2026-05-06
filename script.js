@@ -1,6 +1,13 @@
-window.addEventListener('load', () => {
-    // Definição das perguntas e palavras-chave
-    const questions = [
+/**
+ * Sistema Avançado de Avaliação Teórica TAF - PRF
+ * @author Desenvolvedor (Seu Nome para o Portfólio)
+ * @version 2.0.0
+ * @description Refatoração Profissional com ES6+, Design Patterns e Tratamento de Erros.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Dados do Sistema ---
+    const QUESTIONS = [
         {
             question: "Qual o seu intuito de estar adentrando para a polícia?",
             answer: "Meu intuito é servir e proteger a cidade, aplicando a lei e mantendo a ordem, contribuindo para um ambiente mais justo e seguro para todos. Busco também o desenvolvimento pessoal e profissional dentro da corporação.",
@@ -19,7 +26,7 @@ window.addEventListener('load', () => {
         {
             question: "Module uma QRU de vendas de drogas de um Silvia preto com 2 indivíduos se evadindo da praia sentido cemitério.",
             answer: "'QAP Central, iniciando acompanhamento a um Silvia preto, tripulado X2, se evadindo de uma QRU de tráfico de drogas na praia sentido cemitério, solicito apoio no meu QTH, vaga para 2 QSVs e 1 aéreo.'",
-            keywords: ["QAP Central", "Silvia preto", "tráfico de drogas", "apoio", "QSVs", "aéreo"]
+            keywords: ["QAP Central", "Silvia", "tráfico", "apoio", "QSVs", "aéreo"]
         },
         {
             question: "Cite os códigos de patrulhamento e seus significados.",
@@ -59,330 +66,427 @@ window.addEventListener('load', () => {
         {
             question: "Você avista um cidadão armado de longe entrando em um carro, qual sua atitude perante esta situação?",
             answer: "Manteria a distância segura, informaria a central sobre a situação e solicitaria apoio para iniciar a abordagem 'QAP Central, visual de X indivíduos em um carro X cor X no QTH da X, visual deles armados, solicito apoio para iniciar abordagem'.",
-            keywords: ["manteria a distância", "informaria a central", "solicitaria apoio"]
+            keywords: ["distância", "informaria a central", "apoio"]
         },
         {
             question: "É correto deixar um acompanhamento para prestar QRR em um código 5?",
             answer: "Não, não é correto. A prioridade é sempre o acompanhamento em andamento. O QRR (apoio) em um Código 5 deve ser prestado por outras viaturas disponíveis, a menos que o comando determine o contrário devido a uma situação de extrema urgência ou risco iminente.",
-            keywords: ["Não", "não é correto", "prioridade", "acompanhamento", "outras viaturas"]
+            keywords: ["Não", "prioridade", "acompanhamento", "outras viaturas"]
         },
         {
             question: "Você como aluno, qual seria sua conduta dentro da guarnição?",
             answer: "Como aluno, minha conduta seria de total respeito à hierarquia, disciplina e proatividade. Buscaria aprender com os mais experientes, seguiria todas as ordens e procedimentos, e me dedicaria ao máximo para absorver o conhecimento e as práticas necessárias para me tornar um policial exemplar. Evitaria qualquer tipo de brincadeira ou conduta inadequada que pudesse comprometer a imagem da corporação.",
-            keywords: ["respeito à hierarquia", "disciplina", "proatividade", "aprender", "evitaria brincadeiras"]
+            keywords: ["respeito", "hierarquia", "disciplina", "proatividade", "aprender"]
         },
         {
             question: "Você está numa abordagem e o indivíduo começa a se descontrolar e xingar perante a sua presença e do seu parceiro, qual vai ser sua atitude?",
             answer: "Manteria a calma e a postura profissional. Utilizaria a verbalização para tentar acalmar o indivíduo e reiterar os comandos. Se a situação escalasse para agressão física ou ameaça, aplicaria os níveis de progressão da força necessários para conter o indivíduo e garantir a segurança de todos, sempre comunicando a central e solicitando apoio se necessário.",
-            keywords: ["manteria a calma", "postura profissional", "verbalização", "progressão da força", "comunicando a central"]
+            keywords: ["calma", "postura profissional", "verbalização", "progressão da força"]
         },
         {
             question: "Você está em um acompanhamento e aparece no chat da polícia uma escalação da ação blipada fleeca praia, o que você faz?",
             answer: "Manteria o foco no acompanhamento em andamento, pois é a minha prioridade.",
-            keywords: ["foco no acompanhamento", "prioridade"]
+            keywords: ["foco", "acompanhamento", "prioridade"]
         },
         {
             question: "Você está na rua em um acompanhamento numa QRU, o comando pede formação urgente no departamento para uma joalheria. Você como parte da unidade tática qual a sua atitude?",
             answer: "Comunicaria imediatamente ao comando a minha posição e a situação do acompanhamento. Se o comando confirmasse a necessidade da minha presença na formação urgente, desengajaria do acompanhamento de forma segura e me deslocaria o mais rápido possível para o departamento, informando o status da minha chegada.",
-            keywords: ["comunicaria ao comando", "confirmasse", "desengajaria", "deslocaria"]
+            keywords: ["comunicaria", "comando", "desengajaria", "deslocaria"]
         },
         {
             question: "Qual a conduta correta durante uma formação pré-ação, como você agiria?",
             answer: "Durante uma formação pré-ação, minha conduta seria de total atenção e disciplina. Manteria o silêncio, ouviria atentamente as instruções do comando, faria perguntas apenas se necessário e de forma objetiva, e me prepararia mentalmente e fisicamente para a missão. Evitaria distrações e manteria o foco na operação.",
-            keywords: ["atenção", "disciplina", "silêncio", "ouviria", "evitaria distrações", "foco"]
+            keywords: ["atenção", "disciplina", "silêncio", "ouviria", "foco"]
         },
         {
             question: "Um superior da ordem para você abater um suspeito em uma QRU de roubo ATM, o que você faria em tal situação?",
             answer: "Avaliaria a situação de acordo com os níveis de progressão da força e a legislação vigente. Se o suspeito representasse uma ameaça iminente à vida de inocentes ou de policiais, e todas as outras opções de contenção tivessem sido esgotadas, eu agiria para neutralizar a ameaça. Caso contrário, questionaria a ordem, buscando alternativas que não envolvessem força letal, e registraria a ordem recebida.",
-            keywords: ["avaliaria a situação", "ameaça iminente", "neutralizar a ameaça", "questionaria a ordem", "força letal"]
+            keywords: ["avaliaria", "ameaça iminente", "neutralizar", "questionaria", "força letal"]
         },
         {
             question: "Você está em uma formação e os comandos ainda não chegaram no local, seus colegas de guarnição começam a fazer brincadeiras indevidas ferindo a conduta necessária. Qual seria a sua postura diante ao ocorrido? Por que?",
             answer: "Minha postura seria de repreensão imediata e discreta aos colegas, lembrando-os da importância da disciplina e do profissionalismo, especialmente em uma formação. Se a conduta inadequada persistisse, eu me afastaria do grupo e, se necessário, reportaria a situação a um superior assim que possível.",
-            keywords: ["repreensão", "discreta", "disciplina", "profissionalismo", "reportaria a situação"]
+            keywords: ["repreensão", "discreta", "disciplina", "profissionalismo", "reportaria"]
         }
     ];
 
-    // Elementos do DOM
-    const introContainer = document.getElementById('intro-container');
-    const quizContainer = document.getElementById('quiz-container');
-    const resultsContainer = document.getElementById('results-container');
-    const questionText = document.getElementById('question-text');
-    const answerInput = document.getElementById('answer-input');
-    const nextButton = document.getElementById('next-button');
-    const timerText = document.getElementById('timer-text');
-    const timerRing = document.getElementById('ring');
-    const progressBar = document.getElementById('progress-bar');
-    const downloadLogButton = document.getElementById('download-log');
-    const startButton = document.getElementById('start-button');
-    const showAnalysisButton = document.getElementById('show-analysis-button');
-    const analysisContainer = document.getElementById('analysis-container');
-    const logFileInput = document.getElementById('log-file-input');
-    const analysisResults = document.getElementById('analysis-results');
+    // --- State Management ---
+    const state = {
+        conscriptInfo: null,
+        currentQuestionIndex: 0,
+        score: 0,
+        timer: 20,
+        timerInterval: null,
+        logData: [],
+        isTyping: false
+    };
 
-    // Variáveis de estado
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let timer = 20;
-    let timerInterval;
-    const logData = [];
-    let conscriptInfo = {};
+    const CONSTANTS = {
+        TIME_LIMIT: 20,
+        TYPING_SPEED: 25,
+        PASS_THRESHOLD: 0.75,
+        PARTIAL_THRESHOLD: 0.40
+    };
 
-    // Event Listeners
-    startButton.addEventListener('click', () => {
-        conscriptInfo = {
-            name: document.getElementById('conscript-name').value.trim(),
-            passport: document.getElementById('conscript-passport').value.trim(),
-            discordId: document.getElementById('conscript-discord').value.trim(),
-            age: document.getElementById('conscript-age').value.trim()
-        };
-
-        if (!conscriptInfo.name || !conscriptInfo.passport || !conscriptInfo.discordId || !conscriptInfo.age) {
-            alert("Por favor, preencha todos os campos para iniciar o teste.");
-            return;
+    // --- DOM Elements ---
+    const DOM = {
+        forms: {
+            auth: document.getElementById('auth-form')
+        },
+        containers: {
+            intro: document.getElementById('intro-container'),
+            quiz: document.getElementById('quiz-container'),
+            results: document.getElementById('results-container'),
+            analysis: document.getElementById('analysis-container'),
+            toast: document.getElementById('toast-container')
+        },
+        quiz: {
+            questionText: document.getElementById('question-text'),
+            answerInput: document.getElementById('answer-input'),
+            nextButton: document.getElementById('next-button'),
+            timerText: document.getElementById('timer-text'),
+            timerRing: document.getElementById('ring'),
+            progressBar: document.getElementById('progress-bar'),
+            counter: document.getElementById('question-counter')
+        },
+        buttons: {
+            downloadLog: document.getElementById('download-log')
+        },
+        admin: {
+            fileInput: document.getElementById('log-file-input'),
+            resultsArea: document.getElementById('analysis-results')
         }
+    };
 
-        const discordRegex = /^.+#\d{4}$/;
-        if (!discordRegex.test(conscriptInfo.discordId)) {
-            alert("O ID do Discord deve estar no formato NomeDeUsuário#1234. Por favor, corrija.");
-            return;
-        }
-
-        introContainer.style.display = 'none';
-        quizContainer.style.display = 'block';
-        showQuestion();
-    });
-
-    nextButton.addEventListener('click', () => handleNextQuestion(false));
-    downloadLogButton.addEventListener('click', generateLogFile);
-    showAnalysisButton.addEventListener('click', showAnalysisSection);
-    logFileInput.addEventListener('change', handleLogFile);
-
-    // Funções do Quiz
-    function startTimer() {
-        timer = 20;
-        const initialOffset = 100.04;
-        timerRing.style.strokeDashoffset = initialOffset;
-        timerText.textContent = timer;
-
-        timerInterval = setInterval(() => {
-            timer--;
-            timerText.textContent = timer;
-            const offset = initialOffset - (timer / 20) * initialOffset;
-            timerRing.style.strokeDashoffset = offset;
-
-            if (timer <= 0) {
-                clearInterval(timerInterval);
-                handleNextQuestion(true);
-            }
-        }, 1000);
-    }
-
-    function stopTimer() {
-        clearInterval(timerInterval);
-    }
-
-    function showQuestion() {
-        if (currentQuestionIndex < questions.length) {
-            const currentQuestion = questions[currentQuestionIndex];
-            typeWriterEffect(currentQuestion.question);
-            answerInput.value = '';
-            answerInput.disabled = false;
-            nextButton.disabled = false;
-            startTimer();
-            updateProgressBar();
-        } else {
-            showResults();
-        }
-    }
-
-    function typeWriterEffect(text) {
-        questionText.textContent = '';
-        let i = 0;
-        const speed = 25; // Velocidade da digitação
-        const typingInterval = setInterval(() => {
-            if (i < text.length) {
-                questionText.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(typingInterval);
-            }
-        }, speed);
-    }
-
-    function handleNextQuestion(timedOut = false) {
-        stopTimer();
-        const currentQuestion = questions[currentQuestionIndex];
-        const userAnswer = answerInput.value.trim();
-        const result = analyzeAnswer(userAnswer, currentQuestion.keywords);
-
-        logData.push({
-            question: currentQuestion.question,
-            userAnswer: userAnswer,
-            expectedAnswer: currentQuestion.answer,
-            timeSpent: timedOut ? "Tempo Esgotado" : (20 - timer) + "s",
-            score: result.score,
-            status: result.status
-        });
-
-        score += result.score;
-
-        currentQuestionIndex++;
-        showQuestion();
-    }
-
-    function analyzeAnswer(userAnswer, keywords) {
-        const userLower = userAnswer.toLowerCase();
-        let correctKeywordsCount = 0;
-        
-        keywords.forEach(keyword => {
-            if (userLower.includes(keyword.toLowerCase())) {
-                correctKeywordsCount++;
-            }
-        });
-
-        const keywordPercentage = correctKeywordsCount / keywords.length;
-        let score = 0;
-        let status = "Incorreta";
-
-        if (keywordPercentage >= 0.75) {
-            score = 1;
-            status = "Correta";
-        } else if (keywordPercentage >= 0.4) {
-            score = 0.5;
-            status = "Parcial";
-        }
-
-        return { score, status };
-    }
-
-    function updateProgressBar() {
-        const progress = (currentQuestionIndex / questions.length) * 100;
-        progressBar.style.width = `${progress}%`;
-    }
-
-    function showResults() {
-        quizContainer.style.display = 'none';
-        resultsContainer.style.display = 'block';
-    }
-
-    function generateLogFile() {
-        let logContent = "--- Relatório TAF Teórico - PRF ---\n\n";
-        logContent += `Data do Teste: ${new Date().toLocaleString()}\n`;
-        logContent += `Nome do Conscrito: ${conscriptInfo.name}\n`;
-        logContent += `Passaporte: ${conscriptInfo.passport}\n`;
-        logContent += `ID do Discord: ${conscriptInfo.discordId}\n`;
-        logContent += `Idade: ${conscriptInfo.age}\n\n`;
-        logContent += `Pontuação Total (análise): ${score.toFixed(2)} / ${questions.length}\n\n`;
-
-        logData.forEach((entry, index) => {
-            logContent += `--- Pergunta ${index + 1} ---\n`;
-            logContent += `Pergunta: ${entry.question}\n`;
-            logContent += `Resposta do Conscrito: ${entry.userAnswer || "Nenhuma resposta"}\n`;
-            logContent += `Pontuação na Pergunta: ${entry.score.toFixed(2)}\n`;
-            logContent += `Status: ${entry.status}\n`;
-            logContent += `Tempo Gasto: ${entry.timeSpent}\n`;
-            logContent += `--- Fim da Pergunta ${index + 1} ---\n\n`;
-        });
-
-        const blob = new Blob([logContent], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `TAF_PRF_Relatorio_${conscriptInfo.name.replace(/\s/g, '_')}.log`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
-    // Funções de Análise de Log
-    function showAnalysisSection() {
-        introContainer.style.display = 'none';
-        quizContainer.style.display = 'none';
-        resultsContainer.style.display = 'none';
-        analysisContainer.style.display = 'block';
-    }
-
-    function handleLogFile(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const content = e.target.result;
-            displayLogAnalysis(content);
-        };
-        reader.readAsText(file);
-    }
-
-    function displayLogAnalysis(logContent) {
-        const lines = logContent.split('\n');
-        let conscriptInfo = {};
-        const testResults = [];
-        let currentEntry = {};
-        let isParsingTestResults = false;
-
-        lines.forEach(line => {
-            if (line.includes("--- Relatório TAF Teórico - PRF ---")) {
-                isParsingTestResults = false;
-            } else if (line.includes("--- Pergunta")) {
-                if (Object.keys(currentEntry).length > 0) {
-                    testResults.push(currentEntry);
-                }
-                currentEntry = {};
-                isParsingTestResults = true;
-            } else if (isParsingTestResults) {
-                if (line.includes("Pergunta:")) {
-                    currentEntry.question = line.replace("Pergunta: ", "").trim();
-                } else if (line.includes("Resposta do Conscrito:")) {
-                    currentEntry.userAnswer = line.replace("Resposta do Conscrito: ", "").trim();
-                } else if (line.includes("Pontuação na Pergunta:")) {
-                    currentEntry.score = parseFloat(line.replace("Pontuação na Pergunta:", "").trim());
-                } else if (line.includes("Tempo Gasto:")) {
-                    currentEntry.timeSpent = line.replace("Tempo Gasto:", "").trim();
-                } else if (line.includes("Status:")) {
-                    currentEntry.status = line.replace("Status:", "").trim();
-                }
-            } else {
-                if (line.includes("Nome do Conscrito:")) {
-                    conscriptInfo.name = line.replace("Nome do Conscrito: ", "").trim();
-                } else if (line.includes("Pontuação Total (análise):")) {
-                    conscriptInfo.totalScore = line.replace("Pontuação Total (análise): ", "").trim();
-                }
-            }
-        });
-
-        if (Object.keys(currentEntry).length > 0) {
-            testResults.push(currentEntry);
-        }
-
-        let html = `<h3>Análise do Teste de ${conscriptInfo.name}</h3>`;
-        html += `<p><strong>Pontuação Final:</strong> ${conscriptInfo.totalScore}</p>`;
-        html += `<table>`;
-        html += `<thead><tr><th>Pergunta</th><th>Resposta do Conscrito</th><th>Pontuação</th><th>Status</th><th>Tempo</th></tr></thead>`;
-        html += `<tbody>`;
-
-        testResults.forEach(result => {
-            let statusClass = '';
-            if (result.status === 'Correta') {
-                statusClass = 'correct';
-            } else if (result.status === 'Parcial') {
-                statusClass = 'partial';
-            } else {
-                statusClass = 'incorrect';
-            }
+    // --- Utility Functions ---
+    const Utils = {
+        showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
             
-            html += `<tr class="${statusClass}">`;
-            html += `<td>${result.question}</td>`;
-            html += `<td>${result.userAnswer}</td>`;
-            html += `<td>${result.score.toFixed(2)}</td>`;
-            html += `<td>${result.status}</td>`;
-            html += `<td>${result.timeSpent}</td>`;
-            html += `</tr>`;
-        });
+            const icon = type === 'success' 
+                ? `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>`
+                : `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+                
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            DOM.containers.toast.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Remove after 3s
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        },
 
-        html += `</tbody></table>`;
-        analysisResults.innerHTML = html;
-    }
+        switchView(hideElement, showElement) {
+            hideElement.style.display = 'none';
+            hideElement.classList.remove('slide-up');
+            
+            showElement.style.display = 'block';
+            showElement.classList.add('fade-in');
+        },
+
+        calculateScore(userAnswer, keywords) {
+            const normalizedAnswer = userAnswer.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+            let matches = 0;
+            
+            keywords.forEach(kw => {
+                const normalizedKW = kw.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+                if (normalizedAnswer.includes(normalizedKW)) matches++;
+            });
+
+            const ratio = matches / keywords.length;
+            
+            if (ratio >= CONSTANTS.PASS_THRESHOLD) return { points: 1, status: "Correta", cssClass: "badge-correct" };
+            if (ratio >= CONSTANTS.PARTIAL_THRESHOLD) return { points: 0.5, status: "Parcial", cssClass: "badge-partial" };
+            return { points: 0, status: "Incorreta", cssClass: "badge-incorrect" };
+        }
+    };
+
+    // --- Core Application Logic ---
+    const App = {
+        init() {
+            this.bindEvents();
+        },
+
+        bindEvents() {
+            // Formulário de Início
+            DOM.forms.auth.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.startTest();
+            });
+
+            // Atalho Shift+Enter
+            DOM.quiz.answerInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && e.shiftKey) {
+                    e.preventDefault();
+                    if (!DOM.quiz.nextButton.disabled && !state.isTyping) {
+                        this.processAnswer(false);
+                    }
+                }
+            });
+
+            // Botão de Próxima Questão
+            DOM.quiz.nextButton.addEventListener('click', () => {
+                if (!state.isTyping) this.processAnswer(false);
+            });
+
+            // Download de Log
+            DOM.buttons.downloadLog.addEventListener('click', () => this.generateAndDownloadLog());
+
+            // Admin File Upload
+            DOM.admin.fileInput.addEventListener('change', (e) => this.handleFileUpload(e));
+        },
+
+        startTest() {
+            const discordId = document.getElementById('conscript-discord').value.trim();
+            // Optional regex validation for discord (relaxed for new usernames without #)
+            
+            state.conscriptInfo = {
+                name: document.getElementById('conscript-name').value.trim(),
+                passport: document.getElementById('conscript-passport').value.trim(),
+                discord: discordId,
+                age: document.getElementById('conscript-age').value.trim(),
+                date: new Date().toLocaleString()
+            };
+
+            Utils.showToast('Autenticação confirmada. Iniciando protocolo.', 'success');
+            Utils.switchView(DOM.containers.intro, DOM.containers.quiz);
+            
+            setTimeout(() => this.renderQuestion(), 500);
+        },
+
+        renderQuestion() {
+            if (state.currentQuestionIndex >= QUESTIONS.length) {
+                return this.finishTest();
+            }
+
+            const qData = QUESTIONS[state.currentQuestionIndex];
+            
+            // Update UI
+            DOM.quiz.counter.textContent = `${state.currentQuestionIndex + 1}/${QUESTIONS.length}`;
+            DOM.quiz.progressBar.style.width = `${((state.currentQuestionIndex) / QUESTIONS.length) * 100}%`;
+            
+            // Reset input
+            DOM.quiz.answerInput.value = '';
+            DOM.quiz.answerInput.disabled = true;
+            DOM.quiz.nextButton.disabled = true;
+            
+            // Typewriter effect
+            this.typeQuestion(qData.question, () => {
+                DOM.quiz.answerInput.disabled = false;
+                DOM.quiz.nextButton.disabled = false;
+                DOM.quiz.answerInput.focus();
+                this.startTimer();
+            });
+        },
+
+        typeQuestion(text, callback) {
+            state.isTyping = true;
+            DOM.quiz.questionText.textContent = '';
+            let i = 0;
+            
+            const interval = setInterval(() => {
+                if (i < text.length) {
+                    DOM.quiz.questionText.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    state.isTyping = false;
+                    if (callback) callback();
+                }
+            }, CONSTANTS.TYPING_SPEED);
+        },
+
+        startTimer() {
+            state.timer = CONSTANTS.TIME_LIMIT;
+            const fullDashArray = 100.04; // SVG Circle logic
+            
+            // Reset timer visuals
+            DOM.quiz.timerText.textContent = state.timer;
+            DOM.quiz.timerRing.style.strokeDasharray = `${fullDashArray} ${fullDashArray}`;
+            DOM.quiz.timerRing.style.strokeDashoffset = 0;
+            DOM.quiz.timerRing.style.stroke = 'var(--success)';
+
+            state.timerInterval = setInterval(() => {
+                state.timer--;
+                DOM.quiz.timerText.textContent = state.timer;
+                
+                // Calculate offset
+                const offset = fullDashArray - (state.timer / CONSTANTS.TIME_LIMIT) * fullDashArray;
+                DOM.quiz.timerRing.style.strokeDashoffset = offset;
+                
+                // Color warnings
+                if (state.timer <= 10 && state.timer > 5) DOM.quiz.timerRing.style.stroke = 'var(--warning)';
+                if (state.timer <= 5) DOM.quiz.timerRing.style.stroke = 'var(--danger)';
+
+                if (state.timer <= 0) {
+                    clearInterval(state.timerInterval);
+                    Utils.showToast('Tempo esgotado para esta questão!', 'error');
+                    this.processAnswer(true);
+                }
+            }, 1000);
+        },
+
+        processAnswer(isTimeout) {
+            clearInterval(state.timerInterval);
+            
+            const qData = QUESTIONS[state.currentQuestionIndex];
+            const answer = isTimeout ? "[TEMPO ESGOTADO]" : DOM.quiz.answerInput.value.trim();
+            const evalResult = isTimeout ? { points: 0, status: "Incorreta" } : Utils.calculateScore(answer, qData.keywords);
+
+            // Register Log
+            state.logData.push({
+                question: qData.question,
+                userAnswer: answer || "[EM BRANCO]",
+                timeSpent: isTimeout ? "20s (Timeout)" : `${CONSTANTS.TIME_LIMIT - state.timer}s`,
+                score: evalResult.points,
+                status: evalResult.status
+            });
+
+            state.score += evalResult.points;
+            state.currentQuestionIndex++;
+            
+            this.renderQuestion();
+        },
+
+        finishTest() {
+            Utils.switchView(DOM.containers.quiz, DOM.containers.results);
+            // Hide Admin panel if it was visible
+            DOM.containers.analysis.style.display = 'none'; 
+            Utils.showToast('Avaliação concluída com sucesso.', 'success');
+        },
+
+        generateAndDownloadLog() {
+            const rawData = {
+                metadata: state.conscriptInfo,
+                totalScore: state.score,
+                maxScore: QUESTIONS.length,
+                answers: state.logData
+            };
+
+            // Format as readable log but structured so parser can read it
+            let logStr = `=== TAF PRF: RELATORIO CRIPTOGRAFADO ===\n`;
+            logStr += `[META] NOME: ${rawData.metadata.name}\n`;
+            logStr += `[META] PASSAPORTE: ${rawData.metadata.passport}\n`;
+            logStr += `[META] DISCORD: ${rawData.metadata.discord}\n`;
+            logStr += `[META] IDADE: ${rawData.metadata.age}\n`;
+            logStr += `[META] DATA: ${rawData.metadata.date}\n`;
+            logStr += `[META] NOTA_FINAL: ${rawData.totalScore}\n`;
+            logStr += `==========================================\n\n`;
+
+            rawData.answers.forEach((ans, idx) => {
+                logStr += `--- Q${idx + 1} ---\n`;
+                logStr += `PERGUNTA: ${ans.question}\n`;
+                logStr += `RESPOSTA: ${ans.userAnswer}\n`;
+                logStr += `TEMPO: ${ans.timeSpent}\n`;
+                logStr += `PONTOS: ${ans.score}\n`;
+                logStr += `STATUS: ${ans.status}\n\n`;
+            });
+
+            // Blob download
+            const blob = new Blob([logStr], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `LOG_PRF_${rawData.metadata.passport}_${Date.now()}.log`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            Utils.showToast('Download do relatório iniciado.', 'success');
+        },
+
+        // --- Admin Module ---
+        handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => this.parseAndDisplayLog(e.target.result);
+            reader.readAsText(file);
+        },
+
+        parseAndDisplayLog(content) {
+            try {
+                const lines = content.split('\n');
+                let meta = {};
+                let items = [];
+                let currentItem = {};
+
+                lines.forEach(line => {
+                    if(line.startsWith('[META]')) {
+                        const parts = line.replace('[META] ', '').split(': ');
+                        if(parts.length >= 2) meta[parts[0]] = parts[1];
+                    }
+                    else if (line.startsWith('--- Q')) {
+                        if(Object.keys(currentItem).length > 0) items.push(currentItem);
+                        currentItem = {};
+                    }
+                    else if (line.startsWith('PERGUNTA:')) currentItem.q = line.replace('PERGUNTA: ', '');
+                    else if (line.startsWith('RESPOSTA:')) currentItem.a = line.replace('RESPOSTA: ', '');
+                    else if (line.startsWith('TEMPO:')) currentItem.t = line.replace('TEMPO: ', '');
+                    else if (line.startsWith('PONTOS:')) currentItem.p = line.replace('PONTOS: ', '');
+                    else if (line.startsWith('STATUS:')) currentItem.s = line.replace('STATUS: ', '');
+                });
+                
+                // push last item
+                if(Object.keys(currentItem).length > 0) items.push(currentItem);
+
+                this.renderAdminTable(meta, items);
+                Utils.showToast('Log processado com sucesso!', 'success');
+                
+            } catch (error) {
+                console.error(error);
+                Utils.showToast('Erro ao ler o arquivo .log. Arquivo corrompido?', 'error');
+            }
+        },
+
+        renderAdminTable(meta, items) {
+            let html = `
+                <div class="panel-header">
+                    <h3>Análise de Desempenho</h3>
+                    <p>Candidato: <strong class="highlight">${meta['NOME']}</strong> | Passaporte: <strong>${meta['PASSAPORTE']}</strong> | Nota: <strong class="highlight">${meta['NOTA_FINAL']} / 20</strong></p>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Pergunta / Resposta</th>
+                            <th width="10%">Tempo</th>
+                            <th width="15%">Avaliação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            items.forEach((item, idx) => {
+                let badgeClass = item.s === 'Correta' ? 'badge-correct' : (item.s === 'Parcial' ? 'badge-partial' : 'badge-incorrect');
+                
+                html += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td>
+                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">${item.q}</div>
+                            <div style="color: var(--text-main); font-family: var(--font-mono); font-size: 0.9rem;">${item.a}</div>
+                        </td>
+                        <td style="font-family: var(--font-mono);">${item.t}</td>
+                        <td>
+                            <span class="badge ${badgeClass}">${item.s} (${item.p} pts)</span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            DOM.admin.resultsArea.innerHTML = html;
+        }
+    };
+
+    // Inicializar Aplicação
+    App.init();
 });
